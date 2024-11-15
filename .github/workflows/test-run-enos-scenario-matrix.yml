@@ -150,7 +150,7 @@ jobs:
               echo "github-token=${{ secrets.ELEVATED_GITHUB_TOKEN }}"
               echo "radar-license=${{ secrets.RADAR_LICENSE }}"
               echo "slack-webhook-url=${{ secrets.SLACK_WEBHOOK_URL }}"
-              echo "ssh-key=${{ secrets.SSH_KEY_PRIVATE_CI }}"
+              echo "ssh-key<<EOFSSHKEY"$'\n'"${{ secrets.SSH_KEY_PRIVATE_CI }}"$'\n'EOFSSHKEY
               echo "vault-license=${{ secrets.VAULT_LICENSE }}"
            } | tee -a "$GITHUB_OUTPUT"
           else
@@ -164,7 +164,7 @@ jobs:
               echo "github-token=${{ steps.vault-secrets.outputs.ELEVATED_GITHUB_TOKEN }}"
               echo "radar-license=${{ steps.vault-secrets.outputs.RADAR_LICENSE }}"
               echo "slack-webhook-url=${{ steps.vault-secrets.outputs.SLACK_WEBHOOK_URL }}"
-              echo "ssh-key=${{ steps.vault-secrets.outputs.SSH_KEY_PRIVATE_CI }}"
+              echo "ssh-key<<EOFSSHKEY"$'\n'"${{ steps.vault-secrets.outputs.SSH_KEY_PRIVATE_CI }}"$'\n'EOFSSHKEY
               echo "vault-license=${{ steps.vault-secrets.outputs.VAULT_LICENSE }}"
             } | tee -a "$GITHUB_OUTPUT"
           fi
