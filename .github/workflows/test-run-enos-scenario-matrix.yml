@@ -237,7 +237,7 @@ jobs:
           echo "${{ steps.secrets.outputs.consul-license }}" > ./enos/support/consul.hclic || true
       - name: Configure Vault Radar license
         run: |
-          echo "${{ steps.secrets.outputs.radar-license }}" > ./enos/support/radar.hclic || true
+          echo "${{ steps.secrets.outputs.radar-license }}" > ./enos/support/vault-radar.hclic || true
       - id: launch
         name: enos scenario launch ${{ matrix.scenario.id.filter }}
         # Continue once and retry to handle occasional blips when creating infrastructure.
