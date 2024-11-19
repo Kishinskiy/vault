@@ -44,6 +44,9 @@ on:
 jobs:
   metadata:
     runs-on: ${{ fromJSON(inputs.runs-on) }}
+    permissions:
+      id-token: write # vault-auth
+      contents: read
     outputs:
       build-date: ${{ steps.metadata.outputs.build-date }}
       is-enterprise: ${{ steps.metadata.outputs.is-enterprise }}
@@ -108,7 +111,9 @@ jobs:
       matrix:
         include: ${{ fromJSON(needs.metadata.outputs.sample) }}
     runs-on: ${{ fromJSON(inputs.runs-on) }}
-    permissions: write-all # Ensure we have id-token:write access for vault-auth.
+    permissions:
+      id-token: write # vault-auth
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
