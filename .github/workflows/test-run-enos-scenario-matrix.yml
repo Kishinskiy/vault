@@ -132,7 +132,7 @@ jobs:
           token: ${{ steps.vault-auth.outputs.token }}
           secrets: |
             kv/data/github/${{ github.repository }}/artifactory token | ARTIFACTORY_TOKEN;
-            kv/data/github/${{ github.repository }}/artifactory user | ARTIFACTORY_USER;
+            kv/data/github/${{ github.repository }}/artifactory username | ARTIFACTORY_USER;
             kv/data/github/${{ github.repository }}/aws access-key-id | AWS_ACCESS_KEY_ID_CI;
             kv/data/github/${{ github.repository }}/aws secret-access-key | AWS_SECRET_ACCESS_KEY_CI;
             kv/data/github/${{ github.repository }}/aws role-arn | AWS_ROLE_ARN_CI;
