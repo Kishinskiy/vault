@@ -155,7 +155,9 @@ jobs:
               echo "github-token=${{ secrets.ELEVATED_GITHUB_TOKEN }}"
               echo "radar-license=${{ secrets.RADAR_LICENSE }}"
               echo "slack-webhook-url=${{ secrets.SLACK_WEBHOOK_URL }}"
-              echo "ssh-key<<EOFSSHKEY"$'\n'"${{ secrets.SSH_KEY_PRIVATE_CI }}"$'\n'EOFSSHKEY
+              echo 'ssh-key<<EOFSSHKEYCE'
+              echo "${{ secrets.SSH_KEY_PRIVATE_CI }}"
+              echo EOFSSHKEYCE
               echo "vault-license=${{ secrets.VAULT_LICENSE }}"
            } | tee -a "$GITHUB_OUTPUT"
           else
@@ -169,7 +171,9 @@ jobs:
               echo "github-token=${{ steps.vault-secrets.outputs.ELEVATED_GITHUB_TOKEN }}"
               echo "radar-license=${{ steps.vault-secrets.outputs.RADAR_LICENSE }}"
               echo "slack-webhook-url=${{ steps.vault-secrets.outputs.SLACK_WEBHOOK_URL }}"
-              echo "ssh-key<<EOFSSHKEY"$'\n'"${{ steps.vault-secrets.outputs.SSH_KEY_PRIVATE_CI }}"$'\n'EOFSSHKEY
+              echo 'ssh-key<<EOFSSHKEYENT'
+              echo "${{ steps.vault-secrets.outputs.SSH_KEY_PRIVATE_CI }}"
+              echo EOFSSHKEYENT
               echo "vault-license=${{ steps.vault-secrets.outputs.VAULT_LICENSE }}"
             } | tee -a "$GITHUB_OUTPUT"
           fi
@@ -227,6 +231,8 @@ jobs:
           mkdir -p "./enos/support/terraform-plugin-cache"
           echo "${{ steps.secrets.outputs.ssh-key }}" > "./enos/support/private_key.pem"
           chmod 600 "./enos/support/private_key.pem"
+          sha256sum "./enos/support/private_key.pem"
+          du -h "./enos/support/private_key.pem"
           echo "debug_data_artifact_name=enos-debug-data_$(echo "${{ matrix.scenario }}" | sed -e 's/ /_/g' | sed -e 's/:/=/g')" >> "$GITHUB_OUTPUT"
       - if: contains(inputs.sample-name, 'build')
         uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
